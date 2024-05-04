@@ -1,4 +1,5 @@
 section .bss
+e_d resb 1
 Block resb 128
 filename resb 8
 fileoutputname resb 8
@@ -40,8 +41,8 @@ shiftingmain:
                     jmp shift_right_loop3
 
         shiftrightdone:
-  	      syscall
 
+		ret
 
     shiftleftsetup: ;sets up shifting bits to the left for us
         mov ch, 127
@@ -77,5 +78,4 @@ shiftingmain:
 
 shiftleftdone:
 	ret
-
 
