@@ -1,0 +1,1 @@
+I would like you all to note that this is incomplete for now. i am activitully working on it the best i can, making it assembly is hard, but i like it, this will be done because i generally enjoy coding this, its a fun challenge
