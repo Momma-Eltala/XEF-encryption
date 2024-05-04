@@ -2,6 +2,7 @@ bits 64
 %include "print.asm"
 %include "memoryman.asm"
 %include "filemanager.asm"
+%include "encryptionhandler.asm"
 section .data
 helppagetextline1 db "--help prints this", 10
 helppagetextline2 db "-f File that you want to encypt/or decypt", 10
@@ -40,11 +41,26 @@ _start:
         je filenameset
         cmp al, "p"
         cmp al, "o"
+	je filenoutset
         cmp al, "e"
+	je encryptionsetup
         cmp al, "d"
+	je decryptionsetup
         cmp al, "-"
         je longarg
         jmp invalid
+
+	encryptionsetup:
+		mov al, 1
+		dec r15
+		mov byte [e_b], al
+		jmp nextargument
+
+	decryptionsetup:
+		mov al, 0
+		dec r15
+		mov byte [e_b], al
+		jmp nextargument
 
         longarg:
             inc rdx
@@ -78,6 +94,14 @@ _start:
 	    call file_open
 	    jmp nextargument
 		
+	filenoutset:
+            pop rax
+            mov [fileoutputname], rax
+            dec r15
+            dec r15
+	    call file_open
+	    jmp nextargument
+
 invalid:
     push newline
     push 0
@@ -122,4 +146,8 @@ closenoop:
 
 
 main:
-    jmp exitsuc
+	mov ah, byte [e_b]
+	mov al, 0x00
+	cmp al, ah
+	jne encrypt
+	jmp decrypt
