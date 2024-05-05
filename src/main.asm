@@ -99,7 +99,7 @@ _start:
             mov [fileoutputname], rax
             dec r15
             dec r15
-	    call file_open
+	    call fileopeniner
 	    jmp nextargument
 
 invalid:
@@ -146,6 +146,12 @@ closenoop:
 
 
 main:
+	mov rax, 4
+	mov rdi, done
+	mov rdx, 0
+	call filewrite
+	
+	call exitsuc
 	mov ah, byte [e_b]
 	mov al, 0x00
 	cmp al, ah
