@@ -1,5 +1,5 @@
 section .bss
-e_d resb 1
+e_b resb 1
 Block resb 128
 filename resb 8
 fileoutputname resb 8
@@ -78,4 +78,3 @@ shiftingmain:
 
 shiftleftdone:
 	ret
-
